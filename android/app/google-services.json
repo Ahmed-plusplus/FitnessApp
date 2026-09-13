@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "157444258444",
+    "project_id": "fitness-app-7d2d3",
+    "storage_bucket": "fitness-app-7d2d3.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:157444258444:android:6157077ff839fa70b059a9",
+        "android_client_info": {
+          "package_name": "com.csacademy.fitness_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDPUc_HlSqBRyICbXIV7SLuQJ1cqbR2NzI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
