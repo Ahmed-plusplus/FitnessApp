@@ -1,21 +1,10 @@
 import 'package:flutter/material.dart';
-
+import 'app.dart';
 import 'core/service/service_locator.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   setupServiceLocator();
-  runApp(const MyApp());
+  runApp(const FitnessApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Fitness App',
-      debugShowCheckedModeBanner: false,
-    );
-  }
-}

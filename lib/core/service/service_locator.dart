@@ -1,6 +1,39 @@
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
 
-final getIt = GetIt.instance;
-void setupServiceLocator() {
+import '../../features/onboarding/data/datasources/onboarding_local_data_source.dart';
+import '../../features/onboarding/data/repositories/onboarding_repository_impl.dart';
+import '../../features/onboarding/domain/repositories/onboarding_repository.dart';
+import '../../features/onboarding/domain/usecases/check_onboarding_status_usecase.dart';
+import '../../features/onboarding/domain/usecases/complete_onboarding_usecase.dart';
+import '../../features/onboarding/presentation/cubit/onboarding_cubit.dart';
 
+final getIt = GetIt.instance;
+
+void setupServiceLocator() {
+  // Secure local storage.
+  getIt.registerLazySingleton<FlutterSecureStorage>(
+    () => const FlutterSecureStorage(),
+  );
+
+  // Onboarding cache and business logic.
+  getIt.registerLazySingleton<OnboardingLocalDataSource>(
+    () => OnboardingLocalDataSourceImpl(getIt<FlutterSecureStorage>()),
+  );
+  getIt.registerLazySingleton<OnboardingRepository>(
+    () => OnboardingRepositoryImpl(getIt<OnboardingLocalDataSource>()),
+  );
+  getIt.registerLazySingleton<CheckOnboardingStatusUseCase>(
+    () => CheckOnboardingStatusUseCase(getIt<OnboardingRepository>()),
+  );
+  getIt.registerLazySingleton<CompleteOnboardingUseCase>(
+    () => CompleteOnboardingUseCase(getIt<OnboardingRepository>()),
+  );
+
+  // Cubits are created when their screens need them.
+  getIt.registerFactory<OnboardingCubit>(
+    () => OnboardingCubit(
+      completeOnboardingUseCase: getIt<CompleteOnboardingUseCase>(),
+    ),
+  );
 }
