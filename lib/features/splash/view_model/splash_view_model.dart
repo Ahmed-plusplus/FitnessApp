@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 
 class SplashViewModel extends ChangeNotifier {
-  static const Duration splashDuration = Duration(seconds: 2);
+  static const Duration splashDuration = Duration(seconds: 10);
 
   Timer? _timer;
   bool _isFinished = false;

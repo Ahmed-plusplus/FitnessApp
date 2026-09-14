@@ -109,7 +109,7 @@ class _SplashViewState extends State<SplashView>
                   children: [
                     TextSpan(
                       text: AppStrings.iron,
-                      style: GoogleFonts.bebasNeue(
+                      style: GoogleFonts.lexend(
                         fontSize: screenWidth * 0.125,
                         fontWeight: FontWeight.w700,
                         color: Colors.white,
@@ -118,7 +118,7 @@ class _SplashViewState extends State<SplashView>
                     ),
                     TextSpan(
                       text: AppStrings.pulse,
-                      style: GoogleFonts.bebasNeue(
+                      style: GoogleFonts.lexend(
                         fontSize: screenWidth * 0.125,
                         fontWeight: FontWeight.w700,
                         color: const Color(0xFF008CFF),
@@ -154,7 +154,7 @@ class _SplashViewState extends State<SplashView>
                   AppStrings.feelTheEnergy,
                   style: TextStyle(
                     color: Colors.white70,
-                    fontSize: screenWidth * 0.025,
+                    fontSize: screenWidth * 0.035,
                     fontWeight: FontWeight.w500,
                     letterSpacing: 4,
                   ),
