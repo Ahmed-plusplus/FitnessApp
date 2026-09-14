@@ -13,5 +13,6 @@ class MyApp extends StatelessWidget {
       title: 'Fitness App',
       debugShowCheckedModeBanner: false,
     );
+
   }
 }
