@@ -16,6 +16,15 @@ class HiveHelper {
     await box.put(planId, planData);
   }
 
+  Future<void> updateFavoritePlan(
+    String planId,
+    Map<String, dynamic> planData,
+  ) async {
+    final box = await Hive.openBox<Map>(_favoritePlansBox);
+
+    await box.put(planId, planData);
+  }
+
   Future<Map<String, dynamic>?> getFavoritePlan(String planId) async {
     final box = await Hive.openBox<Map>(_favoritePlansBox);
 

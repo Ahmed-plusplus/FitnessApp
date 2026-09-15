@@ -29,6 +29,8 @@ class DioConsumer implements ApiConsumer {
       return await _dio.get(path, queryParameters: queryParameters);
     } on DioException catch (exception) {
       throw Exception(ApiErrorHandler.handle(exception));
+    } catch (exception) {
+      throw Exception(exception.toString());
     }
   }
 
@@ -46,6 +48,8 @@ class DioConsumer implements ApiConsumer {
       );
     } on DioException catch (exception) {
       throw Exception(ApiErrorHandler.handle(exception));
+    } catch (exception) {
+      throw Exception(exception.toString());
     }
   }
 
@@ -59,6 +63,8 @@ class DioConsumer implements ApiConsumer {
       return await _dio.put(path, data: data, queryParameters: queryParameters);
     } on DioException catch (exception) {
       throw Exception(ApiErrorHandler.handle(exception));
+    } catch (exception) {
+      throw Exception(exception.toString());
     }
   }
 
@@ -76,6 +82,8 @@ class DioConsumer implements ApiConsumer {
       );
     } on DioException catch (exception) {
       throw Exception(ApiErrorHandler.handle(exception));
+    } catch (exception) {
+      throw Exception(exception.toString());
     }
   }
 }
