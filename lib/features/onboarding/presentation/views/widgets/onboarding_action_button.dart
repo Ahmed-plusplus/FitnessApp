@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../models/onboarding_content.dart';
+import '../../viewmodels/onboarding_state.dart';
 import '../../viewmodels/onboarding_view_model.dart';
 import '../../../../../core/theme/app_colors.dart';
 
@@ -16,17 +18,17 @@ class OnboardingActionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: viewModel,
-      builder: (context, _) {
+    return BlocBuilder<OnboardingViewModel, OnboardingState>(
+      bloc: viewModel,
+      builder: (context, state) {
         return SizedBox(
           width: double.infinity,
           height: 48,
           child: ElevatedButton(
-            onPressed: viewModel.isLoading
+            onPressed: state.isLoading
                 ? null
                 : viewModel.completeOnboarding,
-            child: viewModel.isLoading
+            child: state.isLoading
                 ? const SizedBox(
                     width: 20,
                     height: 20,

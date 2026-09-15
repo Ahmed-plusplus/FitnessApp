@@ -1,49 +1,46 @@
-import 'package:flutter/foundation.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/error/failure.dart';
 import '../../domain/usecases/complete_onboarding_usecase.dart';
+import 'onboarding_state.dart';
 
-enum OnboardingStatus {
-  ready,
-  loading,
-  completed,
-  failure,
-}
-
-class OnboardingViewModel extends ChangeNotifier {
+/// MVVM ViewModel and Cubit for the onboarding presentation layer.
+///
+/// The View keeps depending on the ViewModel, while Cubit provides the
+/// reactive state stream consumed by the Flutter UI.
+class OnboardingViewModel extends Cubit<OnboardingState> {
   final CompleteOnboardingUseCase _completeOnboardingUseCase;
 
-  OnboardingStatus _status = OnboardingStatus.ready;
-  String? _errorMessage;
+  OnboardingViewModel(this._completeOnboardingUseCase)
+      : super(const OnboardingState());
 
-  OnboardingViewModel(this._completeOnboardingUseCase);
-
-  OnboardingStatus get status => _status;
-  String? get errorMessage => _errorMessage;
-  bool get isLoading => _status == OnboardingStatus.loading;
-  bool get isCompleted => _status == OnboardingStatus.completed;
+  OnboardingStatus get status => state.status;
+  String? get errorMessage => state.errorMessage;
+  bool get isLoading => state.isLoading;
+  bool get isCompleted => state.isCompleted;
 
   Future<void> completeOnboarding() async {
     if (isLoading) return;
 
-    _setStatus(OnboardingStatus.loading);
+    emit(state.copyWith(
+      status: OnboardingStatus.loading,
+      clearErrorMessage: true,
+    ));
 
     try {
       await _completeOnboardingUseCase();
-      _setStatus(OnboardingStatus.completed);
+      emit(state.copyWith(
+        status: OnboardingStatus.completed,
+        clearErrorMessage: true,
+      ));
     } catch (error) {
-      _errorMessage = error is Failure
+      final message = error is Failure
           ? error.message
           : 'Something went wrong. Please try again.';
-      _setStatus(OnboardingStatus.failure);
+      emit(state.copyWith(
+        status: OnboardingStatus.failure,
+        errorMessage: message,
+      ));
     }
-  }
-
-  void _setStatus(OnboardingStatus status) {
-    _status = status;
-    if (status != OnboardingStatus.failure) {
-      _errorMessage = null;
-    }
-    notifyListeners();
   }
 }

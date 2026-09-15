@@ -4,7 +4,9 @@ import '../../../../../core/constants/app_strings.dart';
 import '../../../../../core/theme/app_colors.dart';
 
 class OnboardingAppBar extends StatelessWidget {
-  const OnboardingAppBar({super.key});
+  final VoidCallback onPressed;
+
+  const OnboardingAppBar({required this.onPressed, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +17,7 @@ class OnboardingAppBar extends StatelessWidget {
       child: Row(
         children: [
           IconButton(
-            onPressed: () {},
+            onPressed: onPressed,
             icon: const Icon(
               Icons.close,
               size: 21,
