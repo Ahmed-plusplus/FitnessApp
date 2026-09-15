@@ -6,19 +6,21 @@ import '../../features/onboarding/data/repositories/onboarding_repository_impl.d
 import '../../features/onboarding/domain/repositories/onboarding_repository.dart';
 import '../../features/onboarding/domain/usecases/check_onboarding_status_usecase.dart';
 import '../../features/onboarding/domain/usecases/complete_onboarding_usecase.dart';
-import '../../features/onboarding/presentation/cubit/onboarding_cubit.dart';
+import '../../features/onboarding/presentation/viewmodels/onboarding_view_model.dart';
+import '../storage/local/cache_helper.dart';
 
 final getIt = GetIt.instance;
 
 void setupServiceLocator() {
-  // Secure local storage.
   getIt.registerLazySingleton<FlutterSecureStorage>(
     () => const FlutterSecureStorage(),
   );
+  getIt.registerLazySingleton<CacheHelper>(
+    () => CacheHelper(getIt<FlutterSecureStorage>()),
+  );
 
-  // Onboarding cache and business logic.
   getIt.registerLazySingleton<OnboardingLocalDataSource>(
-    () => OnboardingLocalDataSourceImpl(getIt<FlutterSecureStorage>()),
+    () => OnboardingLocalDataSourceImpl(getIt<CacheHelper>()),
   );
   getIt.registerLazySingleton<OnboardingRepository>(
     () => OnboardingRepositoryImpl(getIt<OnboardingLocalDataSource>()),
@@ -30,10 +32,7 @@ void setupServiceLocator() {
     () => CompleteOnboardingUseCase(getIt<OnboardingRepository>()),
   );
 
-  // Cubits are created when their screens need them.
-  getIt.registerFactory<OnboardingCubit>(
-    () => OnboardingCubit(
-      completeOnboardingUseCase: getIt<CompleteOnboardingUseCase>(),
-    ),
+  getIt.registerFactory<OnboardingViewModel>(
+    () => OnboardingViewModel(getIt<CompleteOnboardingUseCase>()),
   );
 }

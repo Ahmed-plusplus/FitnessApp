@@ -8,6 +8,7 @@ class AppTheme {
   static ThemeData darkTheme = ThemeData(
     useMaterial3: true,
     brightness: Brightness.dark,
+    fontFamily: 'Lexend',
 
     scaffoldBackgroundColor: AppColors.background,
 

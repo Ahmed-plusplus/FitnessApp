@@ -8,13 +8,19 @@ class OnboardingAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height * 0.07;
+
     return SizedBox(
-      height: 58,
+      height: height.clamp(52.0, 64.0),
       child: Row(
         children: [
           IconButton(
             onPressed: () {},
-            icon: const Icon(Icons.close, size: 21, color: AppColors.textPrimary),
+            icon: const Icon(
+              Icons.close,
+              size: 21,
+              color: AppColors.textPrimary,
+            ),
           ),
           Expanded(
             child: Center(

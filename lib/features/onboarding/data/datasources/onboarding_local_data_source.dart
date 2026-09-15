@@ -1,26 +1,24 @@
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import '../../../../core/storage/local/cache_helper.dart';
 
 abstract class OnboardingLocalDataSource {
   Future<bool> isOnboardingCompleted();
-
   Future<void> setOnboardingCompleted();
 }
 
 class OnboardingLocalDataSourceImpl implements OnboardingLocalDataSource {
   static const _onboardingCompletedKey = 'onboarding_completed';
 
-  final FlutterSecureStorage _secureStorage;
+  final CacheHelper _cacheHelper;
 
-  const OnboardingLocalDataSourceImpl(this._secureStorage);
+  const OnboardingLocalDataSourceImpl(this._cacheHelper);
 
   @override
   Future<bool> isOnboardingCompleted() async {
-    final value = await _secureStorage.read(key: _onboardingCompletedKey);
-    return value == 'true';
+    return await _cacheHelper.read<bool>(_onboardingCompletedKey) ?? false;
   }
 
   @override
-  Future<void> setOnboardingCompleted() async {
-    await _secureStorage.write(key: _onboardingCompletedKey, value: 'true');
+  Future<void> setOnboardingCompleted() {
+    return _cacheHelper.write<bool>(_onboardingCompletedKey, true);
   }
 }
