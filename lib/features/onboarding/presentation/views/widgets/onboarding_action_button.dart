@@ -18,12 +18,15 @@ class OnboardingActionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final buttonHeight =
+        (MediaQuery.sizeOf(context).height * 0.06).clamp(44.0, 52.0).toDouble();
+
     return BlocBuilder<OnboardingViewModel, OnboardingState>(
       bloc: viewModel,
       builder: (context, state) {
         return SizedBox(
           width: double.infinity,
-          height: 48,
+          height: buttonHeight,
           child: ElevatedButton(
             onPressed: state.isLoading
                 ? null
