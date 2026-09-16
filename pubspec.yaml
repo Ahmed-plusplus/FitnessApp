@@ -17,6 +17,7 @@ dependencies:
   go_router: ^16.2.0
   flutter_secure_storage:
   flutter_bloc:
+  flutter_svg:
 
 dev_dependencies:
   flutter_test:

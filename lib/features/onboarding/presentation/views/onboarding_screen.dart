@@ -46,6 +46,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           }
         },
         builder: (context, state) {
+          final screenSize = MediaQuery.sizeOf(context);
+          final horizontalPadding =
+              (screenSize.width * 0.055).clamp(16.0, 24.0).toDouble();
+          final imageHeight =
+              (screenSize.height * 0.48).clamp(280.0, 440.0).toDouble();
+
           return Scaffold(
             body: SafeArea(
               child: LayoutBuilder(
@@ -63,16 +69,16 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                             },
                           ),
                           Padding(
-                            padding: const EdgeInsets.fromLTRB(
-                              20,
+                            padding: EdgeInsets.fromLTRB(
+                              horizontalPadding,
                               8,
-                              20,
-                              20,
+                              horizontalPadding,
+                              screenSize.height * 0.025,
                             ),
                             child: OnboardingBody(
                               content: content,
                               viewModel: viewModel,
-                              imageHeight: constraints.maxHeight * 0.48,
+                              imageHeight: imageHeight,
                             ),
                           ),
                         ],

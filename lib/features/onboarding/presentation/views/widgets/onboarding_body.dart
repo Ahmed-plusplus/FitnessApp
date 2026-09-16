@@ -19,6 +19,12 @@ class OnboardingBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenSize = MediaQuery.sizeOf(context);
+    final titleFontSize = (screenSize.width * 0.075).clamp(24.0, 30.0).toDouble();
+    final bodyFontSize = (screenSize.width * 0.045).clamp(14.0, 18.0).toDouble();
+    final sectionSpacing = (screenSize.height * 0.02).clamp(16.0, 26.0).toDouble();
+    final indicatorWidth =
+        (screenSize.width * 0.3).clamp(90.0, 120.0).toDouble();
     final textTheme = Theme.of(context).textTheme;
 
     return Column(
@@ -29,32 +35,32 @@ class OnboardingBody extends StatelessWidget {
           height: imageHeight,
           fit: BoxFit.cover,
         ),
-        const SizedBox(height: 24),
+        SizedBox(height: sectionSpacing),
         Text(
           content.title,
           textAlign: TextAlign.center,
           style: textTheme.headlineMedium?.copyWith(
-            fontSize: 26,
+            fontSize: titleFontSize,
             height: 1.15,
           ),
         ),
-        const SizedBox(height: 16),
+        SizedBox(height: sectionSpacing * 0.65),
         Text(
           content.description,
           textAlign: TextAlign.center,
           style: textTheme.bodyMedium?.copyWith(
-            fontSize: 16,
+            fontSize: bodyFontSize,
             height: 1.6,
           ),
         ),
-        const SizedBox(height: 26),
+        SizedBox(height: sectionSpacing),
         OnboardingActionButton(
           content: content,
           viewModel: viewModel,
         ),
-        const SizedBox(height: 20),
+        SizedBox(height: sectionSpacing * 0.8),
         Container(
-          width: 104,
+          width: indicatorWidth,
           height: 3,
           decoration: BoxDecoration(
             color: AppColors.border,
