@@ -8,15 +8,6 @@ class OnboardingRepositoryImpl implements OnboardingRepository {
   const OnboardingRepositoryImpl(this._localDataSource);
 
   @override
-  Future<bool> isOnboardingCompleted() async {
-    try {
-      return await _localDataSource.isOnboardingCompleted();
-    } catch (e) {
-      throw CacheFailure('Failed to read onboarding status: $e');
-    }
-  }
-
-  @override
   Future<void> completeOnboarding() async {
     try {
       await _localDataSource.setOnboardingCompleted();
