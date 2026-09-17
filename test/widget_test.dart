@@ -15,6 +15,6 @@ void main() {
     // Build our app and trigger a frame.
     await tester.pumpWidget(const FitnessApp());
 
-    expect(find.byType(MyApp), findsOneWidget);
+    expect(find.byType(FitnessApp), findsOneWidget);
   });
 }
