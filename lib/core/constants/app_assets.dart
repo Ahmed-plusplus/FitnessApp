@@ -1,7 +1,10 @@
-abstract class AppAssets {
-static const String splashBackground =
-      'assets/images/splash_background.png';
+class AppAssets {
+  AppAssets._();
 
+  static const String path = 'assets/images';
+  static const String onboarding = '$path/Onboarding.png';
+  static const String splashBackground =
+      '$path/splash_background.png';
   static const String splashIcon =
-      'assets/images/splash_icon.png';
+      '$path/splash_icon.png';
 }

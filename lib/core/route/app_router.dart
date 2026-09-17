@@ -3,16 +3,39 @@ import 'package:fitness_app/features/login/view/login_view.dart';
 import 'package:fitness_app/features/splash/view/splash_view.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../features/auth/presentation/views/login_screen.dart';
+import '../../features/onboarding/presentation/viewmodels/onboarding_view_model.dart';
+import '../../features/onboarding/presentation/views/onboarding_screen.dart';
+import '../../features/splash/presentation/views/splash_screen.dart';
+import '../service/service_locator.dart';
+import 'app_routes.dart';
+
 final GoRouter router = GoRouter(
   initialLocation: AppRoutes.splash,
   routes: [
     GoRoute(
       path: AppRoutes.splash,
-      builder: (context, state) => const SplashView(),
+      builder: (context, state) {
+        return SplashScreen(
+          checkOnboardingStatusUseCase: getIt(),
+        );
+      },
+    ),
+    GoRoute(
+      path: AppRoutes.onboarding,
+      builder: (context, state) {
+        return OnboardingScreen(
+          viewModel: getIt<OnboardingViewModel>(),
+        );
+      },
     ),
     GoRoute(
       path: AppRoutes.login,
-      builder: (context, state) => const LoginView(),
+      builder: (context, state) => const LoginScreen(),
+    ),
+    GoRoute(
+      path: AppRoutes.splash,
+      builder: (context, state) => const SplashView(),
     ),
   ],
 );
