@@ -2,22 +2,25 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
 
 import '../../features/home/data/datasources/home_local_data_source.dart';
+import '../../features/home/data/repositories/home_repository.dart';
 import '../../features/home/data/repositories/home_repository_impl.dart';
-import '../../features/home/domain/repositories/home_repository.dart';
-import '../../features/home/domain/usecases/get_favorite_plan_ids_usecase.dart';
-import '../../features/home/domain/usecases/get_featured_plans_usecase.dart';
-import '../../features/home/domain/usecases/toggle_favorite_plan_usecase.dart';
 import '../../features/home/presentation/viewmodels/home_view_model.dart';
 import '../../features/onboarding/data/datasources/onboarding_local_data_source.dart';
+import '../../features/onboarding/data/repositories/onboarding_repository.dart';
 import '../../features/onboarding/data/repositories/onboarding_repository_impl.dart';
-import '../../features/onboarding/domain/repositories/onboarding_repository.dart';
-import '../../features/onboarding/domain/usecases/check_onboarding_status_usecase.dart';
-import '../../features/onboarding/domain/usecases/complete_onboarding_usecase.dart';
 import '../../features/onboarding/presentation/viewmodels/onboarding_view_model.dart';
+import '../../features/plan_details/data/datasources/plan_details_local_data_source.dart';
+import '../../features/plan_details/data/repositories/plan_details_repository.dart';
+import '../../features/plan_details/data/repositories/plan_details_repository_impl.dart';
+import '../../features/plan_details/presentation/viewmodels/plan_details_view_model.dart';
+import '../../features/plans/data/datasources/plans_local_data_source.dart';
+import '../../features/plans/data/repositories/plans_repository.dart';
+import '../../features/plans/data/repositories/plans_repository_impl.dart';
+import '../../features/plans/presentation/viewmodels/plans_view_model.dart';
+import '../../features/splash/presentation/viewmodels/splash_view_model.dart';
 import '../../features/trainers/data/datasources/trainers_local_data_source.dart';
+import '../../features/trainers/data/repositories/trainers_repository.dart';
 import '../../features/trainers/data/repositories/trainers_repository_impl.dart';
-import '../../features/trainers/domain/repositories/trainers_repository.dart';
-import '../../features/trainers/domain/usecases/get_trainers_usecase.dart';
 import '../../features/trainers/presentation/viewmodels/trainers_view_model.dart';
 import '../storage/local/cache_helper.dart';
 
@@ -37,15 +40,13 @@ void setupServiceLocator() {
   getIt.registerLazySingleton<OnboardingRepository>(
     () => OnboardingRepositoryImpl(getIt<OnboardingLocalDataSource>()),
   );
-  getIt.registerLazySingleton<CheckOnboardingStatusUseCase>(
-    () => CheckOnboardingStatusUseCase(getIt<OnboardingRepository>()),
-  );
-  getIt.registerLazySingleton<CompleteOnboardingUseCase>(
-    () => CompleteOnboardingUseCase(getIt<OnboardingRepository>()),
-  );
 
   getIt.registerFactory<OnboardingViewModel>(
-    () => OnboardingViewModel(getIt<CompleteOnboardingUseCase>()),
+    () => OnboardingViewModel(getIt<OnboardingRepository>()),
+  );
+
+  getIt.registerFactory<SplashViewModel>(
+    () => SplashViewModel(getIt<OnboardingRepository>()),
   );
 
   getIt.registerLazySingleton<HomeLocalDataSource>(
@@ -54,22 +55,31 @@ void setupServiceLocator() {
   getIt.registerLazySingleton<HomeRepository>(
     () => HomeRepositoryImpl(getIt<HomeLocalDataSource>()),
   );
-  getIt.registerLazySingleton<GetFeaturedPlansUseCase>(
-    () => GetFeaturedPlansUseCase(getIt<HomeRepository>()),
-  );
-  getIt.registerLazySingleton<GetFavoritePlanIdsUseCase>(
-    () => GetFavoritePlanIdsUseCase(getIt<HomeRepository>()),
-  );
-  getIt.registerLazySingleton<ToggleFavoritePlanUseCase>(
-    () => ToggleFavoritePlanUseCase(getIt<HomeRepository>()),
-  );
 
   getIt.registerFactory<HomeViewModel>(
-    () => HomeViewModel(
-      getIt<GetFeaturedPlansUseCase>(),
-      getIt<GetFavoritePlanIdsUseCase>(),
-      getIt<ToggleFavoritePlanUseCase>(),
-    ),
+    () => HomeViewModel(getIt<HomeRepository>()),
+  );
+
+  getIt.registerLazySingleton<PlanDetailsLocalDataSource>(
+    () => PlanDetailsLocalDataSourceImpl(getIt<CacheHelper>()),
+  );
+  getIt.registerLazySingleton<PlanDetailsRepository>(
+    () => PlanDetailsRepositoryImpl(getIt<PlanDetailsLocalDataSource>()),
+  );
+
+  getIt.registerFactory<PlanDetailsViewModel>(
+    () => PlanDetailsViewModel(getIt<PlanDetailsRepository>()),
+  );
+
+  getIt.registerLazySingleton<PlansLocalDataSource>(
+    () => const PlansLocalDataSourceImpl(),
+  );
+  getIt.registerLazySingleton<PlansRepository>(
+    () => PlansRepositoryImpl(getIt<PlansLocalDataSource>()),
+  );
+
+  getIt.registerFactory<PlansViewModel>(
+    () => PlansViewModel(getIt<PlansRepository>()),
   );
 
   getIt.registerLazySingleton<TrainersLocalDataSource>(
@@ -78,11 +88,8 @@ void setupServiceLocator() {
   getIt.registerLazySingleton<TrainersRepository>(
     () => TrainersRepositoryImpl(getIt<TrainersLocalDataSource>()),
   );
-  getIt.registerLazySingleton<GetTrainersUseCase>(
-    () => GetTrainersUseCase(getIt<TrainersRepository>()),
-  );
 
   getIt.registerFactory<TrainersViewModel>(
-    () => TrainersViewModel(getIt<GetTrainersUseCase>()),
+    () => TrainersViewModel(getIt<TrainersRepository>()),
   );
 }

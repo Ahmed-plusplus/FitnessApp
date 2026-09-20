@@ -4,15 +4,14 @@ import 'package:go_router/go_router.dart';
 import '../../../../../core/constants/app_strings.dart';
 import '../../../../../core/shared/widgets/app_bar_bottom_divider.dart';
 import '../../../../../core/theme/app_colors.dart';
+import '../../../../../core/theme/app_theme.dart';
 
 class TrainersAppBar extends StatelessWidget implements PreferredSizeWidget {
   const TrainersAppBar({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.sizeOf(context).width;
-    final horizontalPadding =
-        (screenWidth * 0.055).clamp(16.0, 24.0).toDouble();
+    final horizontalPadding = AppUi.horizontalPadding(context);
 
     return AppBar(
       centerTitle: false,

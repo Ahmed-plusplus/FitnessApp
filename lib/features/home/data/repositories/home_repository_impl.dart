@@ -1,7 +1,7 @@
 import '../../../../core/error/failure.dart';
 import '../../../../core/shared/models/plans_model.dart';
-import '../../domain/repositories/home_repository.dart';
 import '../datasources/home_local_data_source.dart';
+import 'home_repository.dart';
 
 class HomeRepositoryImpl implements HomeRepository {
   final HomeLocalDataSource _localDataSource;

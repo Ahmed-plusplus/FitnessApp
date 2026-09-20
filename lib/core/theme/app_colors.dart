@@ -8,11 +8,14 @@ class AppColors {
 
   static const Color background = Color(0xFF101922);
   static const Color surface = Color(0xFF161F2C);
-  static const Color card = Color(0xFF1E293B);
+  static const Color cardHome = Color(0xff0F172A);
+    static const Color card = Color(0xff0F172A);
+  static const Color cardPlain = Color(0xff0F172A);
+
 
   static const Color textPrimary = Color(0xFFF8FAFC);
   static const Color textSecondary = Color(0xFF94A3B8);
-  static const Color textMuted = Color(0xFF64748B);
+  static const Color textMuted = Color(0xff64748B);
 
   static const Color border = Color(0xFF263447);
   static const Color divider = Color(0xFF243041);

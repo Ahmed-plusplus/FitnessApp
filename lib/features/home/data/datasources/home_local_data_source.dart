@@ -10,8 +10,6 @@ abstract class HomeLocalDataSource {
 }
 
 class HomeLocalDataSourceImpl implements HomeLocalDataSource {
-  static const _favoritePlanIdsKey = 'favorite_plan_ids';
-
   final CacheHelper _cacheHelper;
 
   const HomeLocalDataSourceImpl(this._cacheHelper);
@@ -24,7 +22,7 @@ class HomeLocalDataSourceImpl implements HomeLocalDataSource {
   @override
   Future<Set<int>> getFavoritePlanIds() async {
     final storedIds = await _cacheHelper.read<List<dynamic>>(
-      _favoritePlanIdsKey,
+      CacheHelper.favoritePlanIdsKey,
     );
     if (storedIds == null) return <int>{};
     return storedIds.map((id) => id as int).toSet();
@@ -37,7 +35,7 @@ class HomeLocalDataSourceImpl implements HomeLocalDataSource {
       favoriteIds.add(planId);
     }
     await _cacheHelper.write<List<int>>(
-      _favoritePlanIdsKey,
+      CacheHelper.favoritePlanIdsKey,
       favoriteIds.toList(),
     );
     return favoriteIds;
@@ -51,7 +49,17 @@ class HomeLocalDataSourceImpl implements HomeLocalDataSource {
           'raw strength across your entire body.',
       level: 'Intermediate',
       durationWeeks: 6,
-      image: 'https://picsum.photos/seed/full-body-power/200/200',
+      image: 'https://picsum.photos/seed/marcus-chen/200/200',
+    ),
+    PlansModel(
+      id: 2,
+      name: 'IronPulse Strength Phase',
+      description: 'A high-intensity program designed for maximum muscle '
+          'hypertrophy and strength gains. Focuses on compound movements '
+          'and progressive overload.',
+      level: 'Advanced',
+      durationWeeks: 8,
+      image: 'https://picsum.photos/seed/marcus-chen/200/200',
     ),
   ];
 }

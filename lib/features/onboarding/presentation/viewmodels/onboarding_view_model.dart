@@ -1,18 +1,13 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/error/failure.dart';
-import '../../domain/usecases/complete_onboarding_usecase.dart';
+import '../../data/repositories/onboarding_repository.dart';
 import 'onboarding_state.dart';
 
-/// MVVM ViewModel and Cubit for the onboarding presentation layer.
-///
-/// The View keeps depending on the ViewModel, while Cubit provides the
-/// reactive state stream consumed by the Flutter UI.
 class OnboardingViewModel extends Cubit<OnboardingState> {
-  final CompleteOnboardingUseCase _completeOnboardingUseCase;
+  final OnboardingRepository _repository;
 
-  OnboardingViewModel(this._completeOnboardingUseCase)
-      : super(const OnboardingState());
+  OnboardingViewModel(this._repository) : super(const OnboardingState());
 
   OnboardingStatus get status => state.status;
   String? get errorMessage => state.errorMessage;
@@ -28,7 +23,7 @@ class OnboardingViewModel extends Cubit<OnboardingState> {
     ));
 
     try {
-      await _completeOnboardingUseCase();
+      await _repository.completeOnboarding();
       emit(state.copyWith(
         status: OnboardingStatus.completed,
         clearErrorMessage: true,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'app_search_field.dart';
+import '../../theme/app_theme.dart';
 
 class AppListScreenBody extends StatelessWidget {
   final String searchHint;
@@ -22,9 +23,7 @@ class AppListScreenBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.sizeOf(context).width;
-    final horizontalPadding =
-        (screenWidth * 0.055).clamp(16.0, 24.0).toDouble();
+    final horizontalPadding = AppUi.horizontalPadding(context);
 
     return SafeArea(
       child: isLoading && !hasData
@@ -34,16 +33,16 @@ class AppListScreenBody extends StatelessWidget {
               child: ListView(
                 padding: EdgeInsets.fromLTRB(
                   horizontalPadding,
-                  8,
+                  AppUi.screenTopPadding,
                   horizontalPadding,
-                  24,
+                  AppUi.screenBottomPadding,
                 ),
                 children: [
                   AppSearchField(
                     hintText: searchHint,
                     onChanged: onSearchChanged,
                   ),
-                  SizedBox(height: screenWidth * 0.07),
+                  const SizedBox(height: AppUi.sectionGap),
                   child,
                 ],
               ),

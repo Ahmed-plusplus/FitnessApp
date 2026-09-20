@@ -8,6 +8,7 @@ import '../viewmodels/onboarding_state.dart';
 import '../viewmodels/onboarding_view_model.dart';
 import 'widgets/onboarding_app_bar.dart';
 import 'widgets/onboarding_body.dart';
+import '../../../../core/theme/app_theme.dart';
 
 class OnboardingScreen extends StatefulWidget {
   final OnboardingViewModel viewModel;
@@ -47,8 +48,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         },
         builder: (context, state) {
           final screenSize = MediaQuery.sizeOf(context);
-          final horizontalPadding =
-              (screenSize.width * 0.055).clamp(16.0, 24.0).toDouble();
+          final horizontalPadding = AppUi.horizontalPadding(context);
           final imageHeight =
               (screenSize.height * 0.48).clamp(280.0, 440.0).toDouble();
 

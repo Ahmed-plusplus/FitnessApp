@@ -12,10 +12,7 @@ import 'widgets/trainers_section.dart';
 class TrainersScreen extends StatefulWidget {
   final TrainersViewModel viewModel;
 
-  const TrainersScreen({
-    required this.viewModel,
-    super.key,
-  });
+  const TrainersScreen({required this.viewModel, super.key});
 
   @override
   State<TrainersScreen> createState() => _TrainersScreenState();
@@ -36,8 +33,7 @@ class _TrainersScreenState extends State<TrainersScreen> {
       create: (_) => viewModel,
       child: BlocConsumer<TrainersViewModel, TrainersState>(
         listener: (context, state) {
-          if (state.status == TrainersStatus.failure &&
-              state.errorMessage != null) {
+          if (state.status == TrainersStatus.failure && state.errorMessage != null) {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
               ..showSnackBar(SnackBar(content: Text(state.errorMessage!)));
@@ -46,8 +42,7 @@ class _TrainersScreenState extends State<TrainersScreen> {
         builder: (context, state) {
           return Scaffold(
             appBar: const TrainersAppBar(),
-            bottomNavigationBar:
-                const AppBottomNavigationBar(currentIndex: 1),
+            bottomNavigationBar: const AppBottomNavigationBar(currentIndex: 1),
             body: AppListScreenBody(
               searchHint: AppStrings.searchTrainersHint,
               isLoading: state.isLoading,

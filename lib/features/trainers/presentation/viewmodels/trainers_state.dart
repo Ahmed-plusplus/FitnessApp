@@ -2,12 +2,7 @@ import 'package:flutter/foundation.dart';
 
 import '../../../../core/shared/models/trainers_model.dart';
 
-enum TrainersStatus {
-  initial,
-  loading,
-  loaded,
-  failure,
-}
+enum TrainersStatus { initial, loading, loaded, failure }
 
 @immutable
 class TrainersState {
@@ -16,12 +11,7 @@ class TrainersState {
   final String searchQuery;
   final String? errorMessage;
 
-  const TrainersState({
-    this.status = TrainersStatus.initial,
-    this.trainers = const [],
-    this.searchQuery = '',
-    this.errorMessage,
-  });
+  const TrainersState({this.status = TrainersStatus.initial, this.trainers = const [], this.searchQuery = '', this.errorMessage});
 
   bool get isLoading => status == TrainersStatus.loading;
   bool get isLoaded => status == TrainersStatus.loaded;
@@ -47,8 +37,7 @@ class TrainersState {
       status: status ?? this.status,
       trainers: trainers ?? this.trainers,
       searchQuery: searchQuery ?? this.searchQuery,
-      errorMessage:
-          clearErrorMessage ? null : (errorMessage ?? this.errorMessage),
+      errorMessage: clearErrorMessage ? null : (errorMessage ?? this.errorMessage),
     );
   }
 
@@ -63,10 +52,5 @@ class TrainersState {
   }
 
   @override
-  int get hashCode => Object.hash(
-        status,
-        Object.hashAll(trainers),
-        searchQuery,
-        errorMessage,
-      );
+  int get hashCode => Object.hash(status, Object.hashAll(trainers), searchQuery, errorMessage);
 }

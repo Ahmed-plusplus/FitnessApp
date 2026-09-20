@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../theme/app_colors.dart';
+import '../../theme/app_theme.dart';
 
 class AppSearchField extends StatefulWidget {
   final String hintText;
@@ -32,8 +33,6 @@ class _AppSearchFieldState extends State<AppSearchField> {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.sizeOf(context).width;
-
     return TextField(
       controller: _controller,
       onChanged: widget.onChanged,
@@ -55,9 +54,9 @@ class _AppSearchFieldState extends State<AppSearchField> {
             );
           },
         ),
-        contentPadding: EdgeInsets.symmetric(
-          horizontal: screenWidth * 0.04,
-          vertical: (screenWidth * 0.035).clamp(10.0, 14.0).toDouble(),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: AppUi.cardPadding,
+          vertical: 13,
         ),
       ),
     );

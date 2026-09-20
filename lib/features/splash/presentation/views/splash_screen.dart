@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/route/app_routes.dart';
-import '../../../onboarding/domain/usecases/check_onboarding_status_usecase.dart';
+import '../viewmodels/splash_state.dart';
+import '../viewmodels/splash_view_model.dart';
 
 class SplashScreen extends StatefulWidget {
-  final CheckOnboardingStatusUseCase checkOnboardingStatusUseCase;
+  final SplashViewModel viewModel;
 
   const SplashScreen({
-    required this.checkOnboardingStatusUseCase,
+    required this.viewModel,
     super.key,
   });
 
@@ -17,31 +19,34 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  SplashViewModel get viewModel => widget.viewModel;
+
   @override
   void initState() {
     super.initState();
-    _redirectUser();
-  }
-
-  Future<void> _redirectUser() async {
-    try {
-      final isOnboardingCompleted =
-          await widget.checkOnboardingStatusUseCase();
-
-      if (!mounted) return;
-
-      context.go(
-        isOnboardingCompleted ? AppRoutes.login : AppRoutes.onboarding,
-      );
-    } catch (_) {
-    }
+    viewModel.checkOnboardingStatus();
   }
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: Text('Splash'),
+    return BlocProvider<SplashViewModel>(
+      create: (_) => viewModel,
+      child: BlocListener<SplashViewModel, SplashState>(
+        listenWhen: (previous, current) =>
+            previous.status != current.status &&
+            current.status != SplashStatus.loading,
+        listener: (context, state) {
+          context.go(
+            state.status == SplashStatus.onboardingCompleted
+                ? AppRoutes.login
+                : AppRoutes.onboarding,
+          );
+        },
+        child: const Scaffold(
+          body: Center(
+            child: Text('Splash'),
+          ),
+        ),
       ),
     );
   }

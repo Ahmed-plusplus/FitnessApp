@@ -13,4 +13,6 @@ abstract final class AppRoutes {
   static const String favorites = '/favorites';
   static const String profile = '/profile';
   static const String editProfile = '/editProfile';
+
+  static String planDetailsPath(int planId) => '$planDetails/$planId';
 }

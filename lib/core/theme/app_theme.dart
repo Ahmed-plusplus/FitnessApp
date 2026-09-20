@@ -2,8 +2,61 @@ import 'package:flutter/material.dart';
 
 import 'app_colors.dart';
 
+class AppUi {
+  AppUi._();
+
+  static const double cardRadius = 10;
+  static const double cardPadding = 12;
+  static const double trainerCardRadius = 16;
+  static const double trainerCardHorizontalPadding = 8;
+  static const double trainerCardVerticalPadding = 16;
+  static const double trainerCardImageSize = 96;
+  static const double trainerCardHeight =
+      trainerCardImageSize + (trainerCardVerticalPadding * 2);
+  static const double cardGap = 12;
+  static const double contentGap = 8;
+  static const double screenTopPadding = 8;
+  static const double screenBottomPadding = 24;
+  static const double sectionGap = 12;
+  static const double cardImageWidth = 86;
+  // Home thumbnails fill the card's inner height while respecting its padding.
+  static const double cardImageHeight = 110;
+  static const double cardHeight = 134;
+  static const double cardTextGap = 12;
+
+  static double horizontalPadding(BuildContext context) {
+    final width = MediaQuery.sizeOf(context).width;
+    return (width * 0.055).clamp(16.0, 24.0).toDouble();
+  }
+}
+
 class AppTheme {
   AppTheme._();
+
+  /// Full-width primary call-to-action (e.g. Start Workout).
+  static final ButtonStyle primaryCtaButton = ElevatedButton.styleFrom(
+    backgroundColor: AppColors.primary,
+    foregroundColor: AppColors.white,
+    elevation: 0,
+    minimumSize: const Size(double.infinity, 52),
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(12),
+    ),
+    textStyle: const TextStyle(
+      fontWeight: FontWeight.w700,
+      letterSpacing: 1,
+    ),
+  );
+
+  static const List<BoxShadow> primaryCtaGlow = [
+    BoxShadow(
+      color: Color(0x590E80F2),
+      blurRadius: 16,
+      offset: Offset(0, 6),
+    ),
+  ];
+
+  static const double primaryCtaRadius = 12;
 
   static ThemeData darkTheme = ThemeData(
     useMaterial3: true,
@@ -59,7 +112,7 @@ class AppTheme {
 
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
-      fillColor: AppColors.card,
+      fillColor: AppColors.cardHome,
 
       contentPadding: const EdgeInsets.symmetric(
         horizontal: 14,
@@ -159,11 +212,12 @@ class AppTheme {
     ),
 
     cardTheme: CardThemeData(
-      color: AppColors.card,
+      color: AppColors.cardHome,
       elevation: 0,
       margin: EdgeInsets.zero,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(AppUi.cardRadius),
+        side: const BorderSide(color: AppColors.border),
       ),
     ),
 

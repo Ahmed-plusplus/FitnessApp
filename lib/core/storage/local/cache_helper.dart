@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class CacheHelper {
+  static const String favoritePlanIdsKey = 'favorite_plan_ids';
+
   final FlutterSecureStorage _storage;
 
   const CacheHelper(this._storage);

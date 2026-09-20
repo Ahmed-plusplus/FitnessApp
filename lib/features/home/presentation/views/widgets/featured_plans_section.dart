@@ -4,17 +4,20 @@ import '../../../../../core/constants/app_strings.dart';
 import '../../../../../core/shared/models/plans_model.dart';
 import '../../../../../core/shared/widgets/app_entity_list_view.dart';
 import '../../../../../core/theme/app_colors.dart';
+import '../../../../../core/theme/app_theme.dart';
 import 'plan_card.dart';
 
 class FeaturedPlansSection extends StatelessWidget {
   final List<PlansModel> plans;
   final Set<int> favoritePlanIds;
   final ValueChanged<int> onToggleFavorite;
+  final ValueChanged<int> onPlanTap;
 
   const FeaturedPlansSection({
     required this.plans,
     required this.favoritePlanIds,
     required this.onToggleFavorite,
+    required this.onPlanTap,
     super.key,
   });
 
@@ -43,7 +46,7 @@ class FeaturedPlansSection extends StatelessWidget {
             ),
           ],
         ),
-        const SizedBox(height: 12),
+        const SizedBox(height: AppUi.sectionGap),
         AppEntityListView<PlansModel>(
           items: plans,
           emptyMessage: AppStrings.noFeaturedPlans,
@@ -52,6 +55,7 @@ class FeaturedPlansSection extends StatelessWidget {
             isFavorite: favoritePlanIds.contains(plan.id),
             onFavoriteToggle:
                 plan.id == null ? null : () => onToggleFavorite(plan.id!),
+            onTap: plan.id == null ? null : () => onPlanTap(plan.id!),
           ),
         ),
       ],

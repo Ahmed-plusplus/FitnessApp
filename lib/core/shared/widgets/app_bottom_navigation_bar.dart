@@ -26,6 +26,8 @@ class AppBottomNavigationBar extends StatelessWidget {
       context.go(AppRoutes.home);
     } else if (index == 1) {
       context.go(AppRoutes.trainers);
+    } else if (index == 2) {
+      context.go(AppRoutes.plans);
     }
   }
 
