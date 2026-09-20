@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 mixin SearchableCubitMixin<S> on Cubit<S> {
-  static const Duration _debounceDuration = Duration(milliseconds: 300);
+  static const Duration _debounceDuration = Duration(milliseconds: 500);
 
   Timer? _debounce;
 

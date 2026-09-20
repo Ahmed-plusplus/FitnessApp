@@ -14,10 +14,7 @@ import 'widgets/plan_list_card.dart';
 class PlansScreen extends StatefulWidget {
   final PlansViewModel viewModel;
 
-  const PlansScreen({
-    required this.viewModel,
-    super.key,
-  });
+  const PlansScreen({required this.viewModel, super.key});
 
   @override
   State<PlansScreen> createState() => _PlansScreenState();
@@ -41,8 +38,7 @@ class _PlansScreenState extends State<PlansScreen> {
       create: (_) => viewModel,
       child: BlocConsumer<PlansViewModel, PlansState>(
         listener: (context, state) {
-          if (state.status == PlansStatus.failure &&
-              state.errorMessage != null) {
+          if (state.status == PlansStatus.failure && state.errorMessage != null) {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
               ..showSnackBar(SnackBar(content: Text(state.errorMessage!)));
@@ -58,23 +54,14 @@ class _PlansScreenState extends State<PlansScreen> {
                   : RefreshIndicator(
                       onRefresh: viewModel.loadPlans,
                       child: ListView(
-                        padding: EdgeInsets.fromLTRB(
-                          horizontalPadding,
-                          8,
-                          horizontalPadding,
-                          24,
-                        ),
+                        padding: EdgeInsets.fromLTRB(horizontalPadding, 8, horizontalPadding, 24),
                         children: [
-                          Text(
-                            AppStrings.findYourPlanTitle,
-                            style: Theme.of(context).textTheme.headlineMedium,
-                          ),
+                          Text(AppStrings.findYourPlanTitle, style: Theme.of(context).textTheme.headlineMedium),
                           SizedBox(height: screenWidth * 0.06),
                           AppEntityListView<PlansModel>(
                             items: state.plans,
                             emptyMessage: AppStrings.noPlansAvailable,
-                            itemBuilder: (context, plan) =>
-                                PlanListCard(plan: plan),
+                            itemBuilder: (context, plan) => PlanListCard(plan: plan),
                           ),
                         ],
                       ),

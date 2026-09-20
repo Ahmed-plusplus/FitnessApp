@@ -58,10 +58,13 @@ class _NavIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final iconSize =
+        (MediaQuery.sizeOf(context).width * 0.06).clamp(20.0, 28.0).toDouble();
+
     return SvgPicture.asset(
       assetPath,
-      width: 24,
-      height: 24,
+      width: iconSize,
+      height: iconSize,
       colorFilter: ColorFilter.mode(
         isSelected ? AppColors.primary : AppColors.textSecondary,
         BlendMode.srcIn,
